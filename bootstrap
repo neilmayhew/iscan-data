@@ -1,0 +1,25 @@
+#! /bin/sh
+#  Copyright (C) 2010  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+#  Authors: AVASYS CORPORATION
+#
+#  This file is part of the 'iscan-data' package.
+#  This package is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License or, at
+#  your option, any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#  You ought to have received a copy of the GNU General Public License
+#  along with this package.  If not, see <http://www.gnu.org/licenses/>.
+
+srcdir_file=`autoconf -t AC_CONFIG_SRCDIR:'$1' 2>/dev/null | sed '/^$/d'`
+test -e "$srcdir_file" \
+    || touch -d @0 "$srcdir_file"
+
+autoreconf --install "$@"

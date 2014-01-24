@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="0848"/>
+    <net note="option"/>
+  </interfaces>
+
+  <device>
+    <firmware name="NX300"/>
+    <model name="Stylus Office BX300F/TX300F/Stylus NX300/ME Office 600F Series"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.1090"/><rg value="-0.0304"/><rb value="-0.0786"/>
+      <gr value=" 0.0194"/><gg value=" 1.1078"/><gb value="-0.1272"/>
+      <br value="-0.0077"/><bg value="-0.1293"/><bb value=" 1.1370"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7"/>
+
+</scanner_entry>

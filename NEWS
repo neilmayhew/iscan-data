@@ -1,0 +1,355 @@
+NEWS -- an overview of user-visible changes with each release
+
+----------------------------------------------------------------------
+iscan-data-1.26.0                                         (2013-12-24)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson Perfection V550 Photo (requires iscan-plugin-perfection-v550)
+
+----------------------------------------------------------------------
+iscan-data-1.25.0                                         (2013-12-02)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - XP-510 Series
+
+----------------------------------------------------------------------
+iscan-data-1.24.0                                         (2013-09-24)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - EP-706A
+   - EP-776AB
+   - EP-776AW
+   - EP-806AB
+   - EP-806AR
+   - EP-806AW
+   - EP-906F
+   - EP-976A3
+   - LP-M8040
+   - LP-M8040A
+   - LP-M8040F
+   - PX-046A
+   - PX-436A
+   - XP-610 Series
+   - XP-710 Series
+   - XP-810 Series
+   - XP-950 Series
+
+----------------------------------------------------------------------
+iscan-data-1.23.0                                         (2013-06-10)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - XP-211
+   - XP-212
+   - XP-215
+   - XP-310 Series
+   - XP-410 Series
+
+----------------------------------------------------------------------
+iscan-data-1.22.0                                         (2013-02-06)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - ES-G11000
+
+----------------------------------------------------------------------
+iscan-data-1.21.0                                         (2013-01-09)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Expression 11000XL
+   - L550 Series
+   - M200 Series
+   - WF-3540 Series
+   - WF-M1560 Series
+
+----------------------------------------------------------------------
+iscan-data-1.20.0                                         (2012-11-14)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - L351
+   - L358
+   - XP-750 Series
+   - XP-850 Series
+
+----------------------------------------------------------------------
+iscan-data-1.19.0                                         (2012-10-23)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson Perfection V37 (requires iscan-plugin-perfection-v370)
+   - Epson Perfection V370 Photo (requires iscan-plugin-perfection-v370)
+   - GT-F740 (requires iscan-plugin-perfection-v370)
+   - GT-S640 (requires iscan-plugin-perfection-v370)
+   - L355
+
+----------------------------------------------------------------------
+iscan-data-1.18.0                                         (2012-09-27)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - EP-705A
+   - EP-775A
+   - EP-775AW
+   - EP-805A
+   - EP-805AR
+   - EP-805AW
+   - EP-905A
+   - EP-905F
+   - L210 Series
+   - L350
+   - ME-101
+   - ME-301
+   - ME-303
+   - ME-401
+   - PX-045A
+   - PX-405A
+   - PX-435A
+   - PX-505F
+   - PX-535F
+   - PX-605F
+   - PX-675F
+   - WF-2510 Series
+   - WF-2520 Series
+   - WF-2530 Series
+   - WF-2540 Series
+   - WF-3520 Series
+   - WF-3530 Series
+   - XP-100 Series
+   - XP-200 Series
+   - XP-300 Series
+   - XP-600 Series
+   - XP-700 Series
+   - XP-800 Series
+
+----------------------------------------------------------------------
+iscan-data-1.17.0                                         (2012-08-22)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - DS-30 (requires iscan-plugin-ds-30)
+   - XP-302
+   - XP-305
+   - XP-400 Series
+
+----------------------------------------------------------------------
+iscan-data-1.16.0                                         (2012-06-04)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - ES-D350 (requires esci-interpreter-gt-s80)
+   - LP-M5300 Series
+
+----------------------------------------------------------------------
+iscan-data-1.15.0                                         (2012-02-29)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson Stylus Photo TX730WD Series
+   - PX-504A
+   - WF-7510 Series
+   - WF-7520 Series
+   - WP-4590 Series
+
+----------------------------------------------------------------------
+iscan-data-1.14.0                                         (2012-01-05)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Artisan 635
+   - Epson ME OFFICE 570W Series
+   - Epson Stylus NX530 Series
+   - Epson Stylus SX230 Series
+   - WF-7515
+   - WF-7525
+
+----------------------------------------------------------------------
+iscan-data-1.13.0                                         (2011-11-15)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson ME OFFICE 535
+   - Epson ME OFFICE 940FW Series
+   - Epson Stylus NX635
+   - Epson Stylus Office BX535WD
+   - Epson Stylus Office BX630FW Series
+   - Epson Stylus Office BX935FWD
+   - Epson Stylus SX535WD
+   - K300 Series
+   - PX-1700F
+   - WP-4511
+   - WP-4521
+   - WorkForce 645
+   - WorkForce 845
+   - WorkForce K301
+
+----------------------------------------------------------------------
+iscan-data-1.12.0                                         (2011-10-13)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Artisan 730 Series
+   - EP-774A
+   - EP-804A
+   - EP-804AR
+   - EP-804AW
+   - Epson Stylus NX230 Series
+   - Epson Stylus NX330 Series
+   - Epson Stylus NX430 Series
+   - Epson Stylus Office BX305FW Plus
+   - Epson Stylus Photo PX730WD Series
+   - Epson Stylus SX235W
+   - Epson Stylus SX430W Series
+   - Epson Stylus SX440W Series
+   - Epson Stylus TX230W Series
+   - Epson Stylus TX235
+   - Epson Stylus TX430W Series
+   - Epson Stylus TX435W
+   - GT-S55 (requires esci-interpreter-gt-s80)
+   - GT-S85 (requires esci-interpreter-gt-s80)
+   - PX-1600F
+   - PX-404A
+   - PX-434A
+   - WP-4515
+   - WP-4525
+   - WorkForce 435
+   - WorkForce 545
+
+----------------------------------------------------------------------
+iscan-data-1.11.0                                         (2011-09-07)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Artisan 837
+   - EP-704A
+   - EP-904A
+   - EP-904F
+   - Epson Stylus NX130 Series
+   - Epson Stylus Office BX635FWD
+   - Epson Stylus Photo PX830FWD Series
+   - PX-B750F
+   - WP-4530 Series
+   - WP-4540 Series
+
+----------------------------------------------------------------------
+iscan-data-1.10.0                                         (2011-08-03)
+----------------------------------------------------------------------
+ * not publicly released
+ * adds support for the following devices:
+   - Epson Stylus SX130 Series
+
+----------------------------------------------------------------------
+iscan-data-1.9.0                                          (2011-06-02)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson ME 340 Series
+   - Epson Stylus TX130 Series
+
+----------------------------------------------------------------------
+iscan-data-1.8.1                                          (2011-04-11)
+----------------------------------------------------------------------
+ * fixes lintian error that may prevent installation on Ubuntu 11.04
+
+----------------------------------------------------------------------
+iscan-data-1.8.0                                          (2011-03-02)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson Stylus Office BX925FWD
+   - K200 Series
+   - PX-403A
+
+----------------------------------------------------------------------
+iscan-data-1.7.0                                          (2011-02-04)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - PX-603F
+   - PX-673F
+   - WorkForce 840 Series
+
+----------------------------------------------------------------------
+iscan-data-1.6.0                                          (2010-11-18)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson AcuLaser MX21DNF
+   - Epson Stylus Photo TX720WD Series
+   - Epson Stylus Photo TX820FWD Series
+   - L200 Series
+
+----------------------------------------------------------------------
+iscan-data-1.5.0                                          (2010-11-01)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson AcuLaser MX20DN
+   - Epson AcuLaser MX20DNF
+   - Epson ME OFFICE 620F Series
+   - Epson Stylus Photo PX660 Series
+
+----------------------------------------------------------------------
+iscan-data-1.4.0                                          (2010-10-04)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - Epson Stylus Office TX620FWD Series
+   - Epson Stylus TX560WD Series
+
+----------------------------------------------------------------------
+iscan-data-1.3.0                                          (2010-09-15)
+----------------------------------------------------------------------
+ * adds support for the following devices:
+   - EP-703A
+   - EP-803A
+   - EP-803AW
+   - EP-903A
+   - EP-903F
+   - PX-503A
+
+----------------------------------------------------------------------
+iscan-data-1.2.0                                          (xxxx-xx-xx)
+----------------------------------------------------------------------
+ * not publicly released
+ * adds support for the following devices:
+   - Artisan 725
+   - Artisan 835
+   - Epson ME OFFICE 900WD Series
+   - Epson ME OFFICE 960FWD Series
+   - Epson Stylus NX220 Series
+   - Epson Stylus NX625
+   - Epson Stylus SX525WD
+   - Epson Stylus Office BX305FW
+   - Epson Stylus Office BX525WD
+   - Epson Stylus Office BX625FWD
+   - Epson Stylus Photo PX720WD Series
+   - Epson Stylus Photo PX820FWD Series
+   - Epson Stylus SX620FW Series
+   - WorkForce 320 Series
+   - WorkForce 625
+   - WorkForce 630 Series
+
+----------------------------------------------------------------------
+iscan-data-1.1.0                                          (xxxx-xx-xx)
+----------------------------------------------------------------------
+ * not publicly released
+ * adds support for the following devices:
+   - Epson Stylus Office TX320F Series
+   - Epson Stylus Office TX525FW
+   - ES-D200 (requires esci-interpreter-gt-s80)
+   - GT-F730 (requires esci-interpreter-perfection-v330)
+   - GT-S630 (requires esci-interpreter-perfection-v330)
+
+----------------------------------------------------------------------
+iscan-data-1.0.1                                          (2010-07-07)
+----------------------------------------------------------------------
+ * fixes initramfs-tools related failures on Debian Testing/Unstable
+   (Debian bug 586554 [1])
+
+   [1] http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=586554
+
+----------------------------------------------------------------------
+iscan-data-1.0.0                                          (2010-06-01)
+----------------------------------------------------------------------
+ * initial release adding support for the following devices:
+   - Epson ME 330 Series
+   - Epson ME 320 Series
+   - Epson ME OFFICE 520 Series
+   - Epson ME OFFICE 560W Series
+   - Epson Perfection V33 (requires esci-interpreter-perfection-v330)
+   - Epson Perfection V330 Photo (requires esci-interpreter-perfection-v330)
+   - Epson Stylus NX125
+   - Epson Stylus NX127
+   - Epson Stylus NX420 Series
+   - Epson Stylus Office BX305F
+   - Epson Stylus Office BX320FW Series
+   - Epson Stylus SX125
+   - Epson Stylus SX218
+   - Epson Stylus SX420W Series
+   - Epson Stylus TX120 Series
+   - Epson Stylus TX220 Series
+   - Epson Stylus TX420W Series
+   - WorkForce 520 Series

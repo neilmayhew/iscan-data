@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="0879"/>
+    <net/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 0879"/>
+    <model name="Artisan 837/Stylus Photo PX830FWD Series"/>
+    <model name="EP-904A/EP-904F" region="japan"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0777"/><rg value=" 0.0152"/><rb value="-0.0929"/>
+      <gr value=" 0.0244"/><gg value=" 1.1221"/><gb value="-0.1465"/>
+      <br value=" 0.0103"/><bg value="-0.1544"/><bb value=" 1.1441"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+  </command-set>
+
+</scanner_entry>

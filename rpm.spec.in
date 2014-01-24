@@ -1,0 +1,156 @@
+#  rpm.spec.in -- specifications to build RPM packages
+#  Copyright (C) 2010--2011  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+#  Authors: AVASYS CORPORATION
+#
+#  This file is part of the 'iscan-data' package.
+#  This package is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License or, at
+#  your option, any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#  You ought to have received a copy of the GNU General Public License
+#  along with this package.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# Some handy macro definitions.
+#
+%define pkg	@PACKAGE_TARNAME@
+%define ver	@PACKAGE_VERSION@
+%define rel	@scm_src_release@
+
+#  general package information
+
+Name:		%{pkg}
+Version:	%{ver}
+Release:	%{rel}
+Source:		%{pkg}_%{ver}-%{rel}.tar.gz
+License:	GPL
+
+Vendor:		@scm_src_vendor@
+URL:		@scm_src_website@
+Packager:	@scm_rpm_maint@
+
+Conflicts:	iscan < 2.28.0
+Provides:	iscan-data
+
+BuildArch:	noarch
+BuildRoot:	%{_tmppath}/%{pkg}_%{ver}-%{rel}
+
+Group:		Applications/Multimedia
+Summary:	@scm_src_summary@
+%description
+@scm_src_header@
+.
+@scm_src_footer@
+
+
+#  rpmbuild sections
+
+%prep
+if test "lib" != `basename %{_libdir}`; then
+cat >&2 <<EOF
+Building in x86_64 environments is disabled in order to prevent 'lib64'
+paths from getting into the architecture independent package.
+EOF
+  exit 1;
+fi
+
+%setup -q
+
+
+%build
+%configure
+make
+
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+make install DESTDIR=${RPM_BUILD_ROOT}
+mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/lib/%{pkg}
+
+
+%clean
+make clean
+rm -rf ${RPM_BUILD_ROOT}
+
+
+#  rpm (un)installation scripts
+
+%pre
+
+
+%post
+#
+#  Create udev rules and FDI files.
+#
+STATE_DIR=%{_localstatedir}/lib/%{pkg}
+VERSION=%{ver}-%{rel}
+PATH=%{_libdir}/%{pkg}:$PATH
+make-policy-file --force --quiet --mode udev \
+    --registry $STATE_DIR/clean-files --pkg-vers "$VERSION" || true
+if type xsltproc &> /dev/null; then
+    make-policy-file --force --quiet --mode fdi \
+        --registry $STATE_DIR/clean-files --pkg-vers "$VERSION" || true
+    udevadm control --reload_rules >/dev/null 2>&1 || true
+else
+    echo "Failed to setup automatic scanner configuration via HAL." >&2
+    echo "If you have trouble accessing your scanner as a regular user, please" >&2
+    echo "install xsltproc and run \"%{_libdir}/%{pkg}/make-policy-file --mode fdi\"" >&2
+    echo "to enable this feature." >&2
+fi
+
+
+%preun
+#
+#  Clean up files created in our %%post.
+#
+STATE_DIR=%{_localstatedir}/lib/%{pkg}
+VERSION=%{ver}-%{rel}
+PATH=%{_libdir}/%{pkg}:$PATH
+if  test -f $STATE_DIR/clean-files; then
+    sed -n "s|^$VERSION\t\(/.*\)|\1|p" \
+	     $STATE_DIR/clean-files \
+      | while read file; do
+            rm -f "$file" 2>/dev/null || true
+        done
+    sed -i "/^$VERSION\t\//d" $STATE_DIR/clean-files
+    test -s $STATE_DIR/clean-files || rm $STATE_DIR/clean-files
+fi
+
+
+%postun
+#
+#  Clean up our data and library directories, but only if empty.
+#
+rmdir %{_datadir}/%{pkg}/device 2> /dev/null || true
+rmdir %{_datadir}/%{pkg} 2> /dev/null || true
+rmdir %{_libdir}/%{pkg}  2> /dev/null || true
+rmdir %{_localstatedir}/lib/%{pkg} 2> /dev/null || true
+
+
+#  package contents
+
+%files
+%defattr(-,root,root)
+
+%doc COPYING
+%doc NEWS
+%doc KNOWN-PROBLEMS
+%doc SUPPORTED-DEVICES
+
+%{_datadir}/iscan-data/scsi
+%{_datadir}/iscan-data/usb
+%{_datadir}/iscan-data/fs-blacklist
+%{_datadir}/iscan-data/epkowa.desc
+%{_datadir}/iscan-data/fdi.xsl
+%{_datadir}/iscan-data/sled10.custom.fdi
+%{_datadir}/iscan-data/device/*.xml
+%{_libdir}/%{pkg}/make-policy-file
+%{_localstatedir}/lib/%{pkg}

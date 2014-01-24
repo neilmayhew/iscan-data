@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="085D"/>
+    <net/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 085D"/>
+    <model name="Stylus SX620FW/Stylus Office BX625FWD/TX620FWD/ME OFFICE 960FWD/WorkForce 630 Series"/>
+    <model name="PX-603F" region="japan"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0613"/><rg value=" 0.0322"/><rb value="-0.0935"/>
+      <gr value=" 0.0260"/><gg value=" 1.0999"/><gb value="-0.1259"/>
+      <br value=" 0.0229"/><bg value="-0.2275"/><bb value=" 1.2046"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+  </command-set>
+
+  <capabilities option="adf" mode="simplex">
+    <scan-area width="20400" height="33600" base="2400"/>
+  </capabilities>
+
+  <capabilities option="adf" mode="duplex">
+    <scan-area width="20400" height="28080" base="2400"/>
+  </capabilities>
+
+</scanner_entry>

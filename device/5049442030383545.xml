@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="085E"/>
+    <net/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 085E"/>
+    <model name="Stylus NX625/SX525WD/TX560WD/Stylus Office BX525WD/ME OFFICE 900WD/WorkForce 625 Series"/>
+    <model name="PX-503A" region="japan"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0613"/><rg value=" 0.0322"/><rb value="-0.0935"/>
+      <gr value=" 0.0260"/><gg value=" 1.0999"/><gb value="-0.1259"/>
+      <br value=" 0.0229"/><bg value="-0.2275"/><bb value=" 1.2046"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+  </command-set>
+
+</scanner_entry>

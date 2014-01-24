@@ -1,0 +1,43 @@
+#! /bin/sh
+#  iscan-data.postinst -- things to do after installation
+#  Copyright (C) 2010  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+
+
+#DEBHELPER#
+
+
+PKGLIBDIR=@DEB_CONFIGURE_PREFIX@/lib/@DEB_SOURCE_PACKAGE@
+STATE_DIR=@DEB_CONFIGURE_LOCALSTATEDIR@/lib/@DEB_SOURCE_PACKAGE@
+
+VERSION=@DEB_VERSION@
+
+PATH=$PKGLIBDIR:$PATH
+
+case "$1" in
+
+    configure)
+	make-policy-file --force --quiet --mode udev \
+	    --registry $STATE_DIR/clean-files --pkg-vers "$VERSION" || true
+	make-policy-file --force --quiet --mode fdi \
+	    --registry $STATE_DIR/clean-files --pkg-vers "$VERSION" || true
+
+	# Most udev setups will pick up any changes automatically, but
+	# on at least Ubuntu 8.04 they seem to be ignored.  Let's make
+	# sure they aren't.
+
+	udevadm control --reload_rules >/dev/null 2>&1
+	;;
+
+    abort-*)
+	;;
+
+    *)
+	echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+
+esac
+
+exit 0

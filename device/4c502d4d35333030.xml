@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="0894"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="LP-M5300"/>
+        <model name="LP-M5300 Series" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.1115"/>
+            <rg value="-0.0377"/>
+            <rb value="-0.0738"/>
+            <gr value="-0.0658"/>
+            <gg value="1.0624"/>
+            <gb value="0.0034"/>
+            <br value="0.0042"/>
+            <bg value="-0.2883"/>
+            <bb value="1.2841"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="B7">
+        <command name="feed" code="19"/>
+        <command name="set_focus_position" code="1B70"/>
+    </command-set>
+</scanner_entry>
+

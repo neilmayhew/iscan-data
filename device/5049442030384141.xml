@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="08AA"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="PID 08AA"/>
+        <model name="M200 Series"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.0782"/>
+            <rg value="0.0135"/>
+            <rb value="-0.0917"/>
+            <gr value="0.0206"/>
+            <gg value="1.0983"/>
+            <gb value="-0.1189"/>
+            <br value="0.0113"/>
+            <bg value="-0.1485"/>
+            <bb value="1.1372"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="D7">
+        <command name="lock" code="1B28"/>
+        <command name="unlock" code="1B29"/>
+    </command-set>
+</scanner_entry>
+

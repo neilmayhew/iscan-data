@@ -1,0 +1,36 @@
+#  control.in -- %__FILE_DESC__%
+#  Copyright (C) 2010--2011  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+#  Authors: AVASYS CORPORATION
+#
+#  This file is part of the 'iscan-data' package.
+#  This package is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License or, at
+#  your option, any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#  You ought to have received a copy of the GNU General Public License
+#  along with this package.  If not, see <http://www.gnu.org/licenses/>.
+
+
+Source: @PACKAGE_TARNAME@
+Section: non-free/graphics
+Priority: extra
+Maintainer: @scm_deb_maint@ <@scm_deb_maint_email@>
+Build-Depends: cdbs, debhelper (>= 5.0.42), xsltproc
+Standards-Version: 3.8.0
+
+Package: @PACKAGE_TARNAME@
+Architecture: all
+Depends: udev (>= 0.105-4), xsltproc, ${shlibs:Depends}, ${misc:Depends}
+Conflicts: iscan (<< 2.28.0)
+Description: @scm_src_summary@
+@scm_src_header@
+.
+@scm_src_footer@

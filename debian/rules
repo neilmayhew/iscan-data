@@ -1,0 +1,66 @@
+#! /usr/bin/make -f
+#  rules.in -- to build Debian packages
+#  Copyright (C) 2010  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+#  Authors: AVASYS CORPORATION
+#
+#  This file is part of the 'iscan-data' package.
+#  This package is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License or, at
+#  your option, any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#  You ought to have received a copy of the GNU General Public License
+#  along with this package.  If not, see <http://www.gnu.org/licenses/>.
+
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+
+
+#  Before even thinking of packaging up the build results in a binary
+#  package, make sure the software's very own test suite is exercised
+#  in the build environment.
+
+DEB_MAKE_CHECK_TARGET = check
+
+
+statedir       = $(DEB_DESTDIR)$(DEB_CONFIGURE_LOCALSTATEDIR)/lib/$(DEB_SOURCE_PACKAGE)
+hooksdir       = $(DEB_DESTDIR)$(DEB_CONFIGURE_PREFIX)/share/initramfs-tools/hooks
+
+install/$(DEB_SOURCE_PACKAGE)::
+	test -d $(statedir)             || mkdir -p $(statedir)
+	test -d $(hooksdir)             || mkdir -p $(hooksdir)
+	install -m 0755 $(DEB_SRCDIR)/policy/initramfs-hook \
+	    $(hooksdir)/`echo $(DEB_SOURCE_PACKAGE) | sed 's/[^_0-9a-zA-Z]/_/g'`
+
+deb_subst_files = \
+	$(CURDIR)/policy/initramfs-hook \
+	$(CURDIR)/debian/$(DEB_SOURCE_PACKAGE).postinst \
+	$(CURDIR)/debian/$(DEB_SOURCE_PACKAGE).prerm
+
+cleanbuilddir/$(DEB_SOURCE_PACKAGE)::
+	-rm $(deb_subst_files)
+
+pre-build::
+	for f in $(deb_subst_files); do \
+	    sed -e 's|[@]DEB_SOURCE_PACKAGE[@]|$(DEB_SOURCE_PACKAGE)|g' \
+	        -e 's|[@]DEB_VERSION[@]|$(DEB_VERSION)|g' \
+	        -e 's|[@]DEB_CONFIGURE_PREFIX[@]|$(DEB_CONFIGURE_PREFIX)|g' \
+	        -e 's|[@]DEB_CONFIGURE_SYSCONFDIR[@]|$(DEB_CONFIGURE_SYSCONFDIR)|g' \
+	        -e 's|[@]DEB_CONFIGURE_LOCALSTATEDIR[@]|$(DEB_CONFIGURE_LOCALSTATEDIR)|g' \
+	        $$f.in > $$f; \
+	done
+	oops= ; for f in $(deb_subst_files); do \
+	    grep @DEB_ $$f >/dev/null 2>&1 && oops="$$oops $$f"; \
+	done; \
+	if test x != x"$$oops"; then \
+	    echo "unsubstituted variables in $$oops" >&2; \
+	    exit 2; \
+	fi

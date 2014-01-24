@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="0866"/>
+    <net/>
+  </interfaces>
+
+  <device>
+    <firmware name="AL-MX20"/>
+    <model name="AcuLaser MX20DN/MX20DNF"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0630"/><rg value="-0.0361"/><rb value="-0.0269"/>
+      <gr value="-0.0844"/><gg value=" 1.1264"/><gb value="-0.0420"/>
+      <br value="-0.0073"/><bg value="-0.3710"/><bb value=" 1.3783"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="B7">
+    <command name="set_focus_position" code="1B70" status="disabled"/>
+    <command name="feed" code="19"/>
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+  </command-set>
+
+</scanner_entry>

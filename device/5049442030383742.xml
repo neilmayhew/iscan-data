@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="087B"/>
+    <net/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 087B"/>
+    <model name="Stylus Photo PX730WD/TX730WD/Artisan 730 Series"/>
+    <model name="EP-804A/EP-804AR/EP-804AW" region="japan"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0777"/><rg value=" 0.0152"/><rb value="-0.0929"/>
+      <gr value=" 0.0244"/><gg value=" 1.1221"/><gb value="-0.1465"/>
+      <br value=" 0.0103"/><bg value="-0.1544"/><bb value=" 1.1441"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+    <command name="eject" code="0C" status="disabled"/>
+  </command-set>
+
+</scanner_entry>

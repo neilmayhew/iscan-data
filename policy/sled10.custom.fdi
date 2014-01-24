@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<deviceinfo version="0.2">
+  <device>
+    <match key="info.category" string="usbraw">
+      <match key="@info.parent:usb_device.vendor_id" int="0x04b8">
+        <match key="@info.parent:usb_device.product_id" int="0x3c4d">
+          <merge key="resmgr.class" type="string">scanner</merge>
+        </match>
+      </match>
+    </match>
+  </device>
+</deviceinfo>

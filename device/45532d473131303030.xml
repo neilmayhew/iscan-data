@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="014B"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="ES-G11000"/>
+        <model name="ES-G11000" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.1223"/>
+            <rg value="-0.0985"/>
+            <rb value="-0.0238"/>
+            <gr value="-0.0847"/>
+            <gg value="1.1502"/>
+            <gb value="-0.0655"/>
+            <br value="0.0118"/>
+            <bg value="-0.5022"/>
+            <bb value="1.4904"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="color negative">
+            <rr value="1.0077"/>
+            <rg value="-0.0129"/>
+            <rb value="0.0052"/>
+            <gr value="-0.0904"/>
+            <gg value="1.1785"/>
+            <gb value="-0.0881"/>
+            <br value="0.0000"/>
+            <bg value="-0.1528"/>
+            <bb value="1.1528"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="positive">
+            <rr value="1.1927"/>
+            <rg value="-0.1646"/>
+            <rb value="-0.0280"/>
+            <gr value="-0.0655"/>
+            <gg value="1.1033"/>
+            <gb value="-0.0378"/>
+            <br value="0.0034"/>
+            <bg value="-0.4173"/>
+            <bb value="1.4139"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="B8">
+        <command name="set_focus_position" code="1B70"/>
+    </command-set>
+</scanner_entry>
+

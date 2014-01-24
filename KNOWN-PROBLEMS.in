@@ -1,0 +1,261 @@
+KNOWN-PROBLEMS -- things we know about but can't or won't fix (yet)
+
+
+ TABLE OF CONTENTS
+
+======================================================================
+ - Cannot scan with the ADF at resolutions higher than 1200 dpi.
+----------------------------------------------------------------------
+ + Scanning with the ADF at resolutions higher than 1200 dpi causes
+   certain devices to lock up.
+ 
+   The following devices are affected:
+     - Epson Stylus Office BX600FW
+     - Epson Stylus Office TX600FW
+     - Epson Stylus SX600FW
+     - Epson WorkForce 600
+
+   If this happens, you will need to restart Image Scan! as well as
+   the device itself.
+
+   This has been fixed in iscan-2.17.0.
+   
+======================================================================
+ - A printer configuration dialog keeps appearing after every single
+   scan action.
+----------------------------------------------------------------------
+ + This has been confirmed on FC6 and you can fix the problem with an
+   upgrade of the 'hal-cups-utils' package.  Version 0.6.9-1.fc6 has
+   been confirmed to solve it.
+
+   You will need to configure the printer part of the device to use a
+   HAL device URI, that is, something that starts with 'hal:///' (of
+   course without the quotes), via the CUPS web interface or Fedora's
+   'system-config-printer' utility.  If you can configure the printer
+   via the 'Specify Printer Driver' dialog, that should also work and
+   is probably easier for most.
+
+======================================================================
+ - Image Scan! does not appear in the GIMP menu.
+----------------------------------------------------------------------
+ + Normally, installing a binary package will register iscan as a GIMP
+   plugin.  In case this did not happen, or you compiled and installed
+   iscan from source, you can register it as a plugin yourself with
+   the following command:
+
+     $ ln -s /usr/bin/iscan ~/.gimp-2.2/plug-ins/
+
+   Adjust the version number to match the version of the GIMP that you
+   use (and /usr/bin to wherever iscan was installed).  If you want to
+   make it available system wide, you can do that with:
+
+     # ln -s /usr/bin/iscan `gimptool-2.0 --gimpplugindir`/plug-ins/
+
+   If the GIMP complains something like
+
+     duplicate plug-in: "/usr/lib/gimp/2.0/plug-ins/iscan"
+
+   Just remove ~/.gimp-2.2/plug-ins/iscan and all should be fine.
+   Note that the system wide location may use a version number that is
+   different from the one used in your home directory.
+
+======================================================================
+ - Image Scan! is in the GIMP menu but it is disabled.
+----------------------------------------------------------------------
+ + This problem has been confirmed on Ubuntu 7.10 and Fedora 8.  Both
+   use a release candidate of GIMP version 2.4, gimp-2.4.0rc3 in case
+   that matters.  We are not quite sure why this happens but the final
+   2.4.0 GIMP release does not appear to suffer from this problem.
+
+   We suggest you upgrade your GIMP packages to 2.4.0 or later.
+
+======================================================================
+ - Directory contents do not show up correctly in the save dialog.
+----------------------------------------------------------------------
+ + If you have files or directory names with non-ASCII characters in
+   them, these may not get displayed at all or displayed incorrectly
+   in the file selection dialog.  Warnings will appear on the terminal
+   window you started iscan from (or in ~/.xsession-errors if you used
+   the menu) that look like this:
+
+     Gtk-Message: The filename "\343\203\207\343\202\271\343\202\257\343\203\210\343\203\203\343\203\227" couldn't be converted to UTF-8. (try setting the environment variable G_FILENAME_ENCODING): Invalid byte sequence in conversion
+
+   You can work around this problem by starting iscan from a terminal
+   with the following command:
+
+     $ G_FILENAME_ENCODING=UTF-8 iscan
+
+======================================================================
+ - Images are a lot smaller than expected.
+----------------------------------------------------------------------
+ + For certain devices the resolution is restricted to values not
+   larger than 600dpi when scanning from the ADF. The resolution lists
+   do not reflect this restriction.
+
+   The following devices are affected:
+     - Epson ES-H300
+     - Epson GT-2500
+     - Epson LP-M5000
+     - Epson LP-M6000
+
+   The resolution lists reflect this restriction as of iscan-2.16.0.
+
+======================================================================
+ - Scaling causes Image Scan! to crash.
+----------------------------------------------------------------------
+ + Image Scan! may crash if the combination of scale and resolution
+   settings result in a scan resolution greater than 600 dpi. This
+   problem only occurs when scanning in ADF mode.
+
+   The following devices are affected:
+     - Epson LP-M5000
+     - Epson LP-M6000
+   
+   If this happens you will need to restart the device.
+
+   This has been fixed in iscan-2.17.0.
+
+======================================================================
+ - The device is recognised as a scanner but I can't scan.
+----------------------------------------------------------------------
+ + The various GNU/Linux distributions all use different policies when
+   it comes to accessing scanners.  Please refer to the information of
+   your distribution for the details.
+
+   On quite a few distributions you can solve this by adding yourself
+   to a certain group, often "scanner" or "lp".  There is probably a
+   "Users and Groups" entry somewhere in your menus that let's you do
+   that.  You can also try the command line.
+
+     # adduser $user $group
+
+   or
+
+     # usermod --append --groups $group $user
+
+   or
+
+     # usermod -A $group $user
+
+   Of course, substitute $user and $group with values that match your
+   situation.
+
+   You will have to log out and back in again to make these group
+   membership changes take effect.
+
+======================================================================
+ - USB devices are not recognised as scanners.
+----------------------------------------------------------------------
+ + The Image Scan! binary packages try hard to make sure all supported
+   devices are properly recognised as scanners.  In case yours is not,
+   Image Scan! will not be able to communicate with it.  Should that
+   happen, try the following:
+
+    - replug (or power-cycle) the device
+    - reload the udev rules with one of
+       # /etc/init.d/udev reload
+       # /etc/init.d/udev force-reload
+       # /etc/init.d/udev restart
+
+   If you built Image Scan! from source, you will have to create (and
+   install) udev rules manually.  Have a look at the make-policy-file
+   script in the source's policy/ directory and how this is used in the
+   iscan-data.spec and debian/rules files.
+
+======================================================================
+ - Accessing the device via the kernel's scanner module.
+----------------------------------------------------------------------
+ + First things first, the kernel's scanner module is no longer part
+   of the kernel since version 2.6.3 and has not been maintained as of
+   the late 2.4.x kernels.  If at all possible, do not use this module
+   anymore.
+
+   So you really, really want to use the scanner module?  Then have a
+   look at the epkowa.conf file included in the sources (and typically
+   installed as /etc/sane.d/epkowa.conf).  If your system doesn't have
+   a device node for USB scanners, you can create one with:
+
+     # mknod /dev/usb/scanner0 c 180 48
+     # chmod 0666 /dev/usb/scanner0
+
+   Adjust the file name as necessary.  You may also want to tweak the
+   access permissions and ownership and/or group settings for security
+   reasons.  Whatever you use, remember that people who need to access
+   the scanner will need both read and write permissions to the device
+   node.
+
+======================================================================
+ - Image Scan! crashes when used with root privileges.
+----------------------------------------------------------------------
+ + This may happen with all-in-one devices that have memory card slots.
+   A slot may be mistaken for a scanner device, triggering the crash.
+
+   You really shouldn't be using Image Scan! with root privileges to
+   begin with, so scan with normal user privileges.  Normal users do
+   not have the privileges needed to mistake the memory card slot for
+   a scanner ;-)
+
+   This has been fixed in iscan-2.15.0.
+
+======================================================================
+ - My distribution doesn't have libltdl3 but Image Scan! requires it.
+----------------------------------------------------------------------
+ + We first noticed this on Ubuntu 8.10, which switched to libltdl7
+   completely.  Ubuntu users have documented[1] some options.
+
+   Alternatively, you can build your own Image Scan! packages against
+   a newer libltdl version.  For instructions on how to do that, see
+   the README file.
+
+   [1] http://ubuntuforums.org/showthread.php?p=6150240
+
+======================================================================
+ - Marquee sizes can only be set in multiples of 8 (in rare cases 32).
+----------------------------------------------------------------------
+ + This is a limitation that affects all models.
+
+======================================================================
+ - I cannot use my device's multi photo feeder (MPF) option.
+----------------------------------------------------------------------
+ + Image Scan! for Linux does not support the multi photo feeder option.
+
+   The following devices are affected: Epson GT-F500, Epson GT-F520,
+   Epson GT-F550, Epson GT-F570, Epson Perfection 2480 PHOTO,
+   Epson Perfection 2580 PHOTO, Epson Perfection 3490 PHOTO,
+   Epson Perfection 3590 PHOTO.
+
+======================================================================
+ - I cannot use my device's auto film loader (AFL) option.
+----------------------------------------------------------------------
+ + Image Scan! for Linux does not support the auto film loader option.
+
+   This affects the Epson GT-F700 and Epson Perfection V350 PHOTO.
+
+======================================================================
+ - I cannot use my device's transparency unit (TPU) option.
+----------------------------------------------------------------------
+ + The following devices only support scanning from the flatbed:
+   Epson GT-F550, Epson GT-F570, Epson Perfection 2580 PHOTO,
+   Epson Perfection 3590 PHOTO.
+
+======================================================================
+ - The document feeder does not transport documents correctly
+----------------------------------------------------------------------
+ + This may happen when you put your documents in the feeder slot of
+   the DS-30 before starting a scan.  To get document feeding to work
+   the way it should please do the following:
+
+   When using Image Scan! for Linux:
+
+   1. Press Image Scan! for Linux' Scan button.
+   2. Insert your document in the feeder slot.  The device will "grab"
+      the document and pull it in a little.
+   3. Press the scan button on the device.
+
+   When using other SANE frontends:
+
+   1. Insert your document in the feeder slot.
+   2. Start scanning from the frontend.
+   3. Re-insert your document in the feeder slot.  The device will now
+      "grab" the document and pull it in a little.
+   4. Press the scan button on the device.

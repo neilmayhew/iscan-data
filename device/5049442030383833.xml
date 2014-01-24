@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="0883"/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 0883"/>
+    <model name="Stylus NX130/SX130/TX130/ME 340 Series"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0779"/><rg value=" 0.0132"/><rb value="-0.0911"/>
+      <gr value=" 0.0214"/><gg value=" 1.1003"/><gb value="-0.1217"/>
+      <br value=" 0.0109"/><bg value="-0.1487"/><bb value=" 1.1378"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+  </command-set>
+
+</scanner_entry>

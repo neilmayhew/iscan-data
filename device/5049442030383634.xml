@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<scanner_entry>
+
+  <interfaces>
+    <usb vendor="04b8" product="0864"/>
+    <net note="option"/>
+  </interfaces>
+
+  <device>
+    <firmware name="PID 0864"/>
+    <model name="Stylus NX420/SX420W/TX420W/ME OFFICE 560W Series"/>
+  </device>
+
+  <profile-set>
+    <profile type="reflective">
+      <rr value=" 1.0613"/><rg value=" 0.0322"/><rb value="-0.0935"/>
+      <gr value=" 0.0260"/><gg value=" 1.0999"/><gb value="-0.1259"/>
+      <br value=" 0.0229"/><bg value="-0.2275"/><bb value=" 1.2046"/>
+    </profile>
+  </profile-set>
+
+  <command-set type="extended" level="D7">
+    <command name="lock" code="1B28"/>
+    <command name="unlock" code="1B29"/>
+  </command-set>
+
+</scanner_entry>

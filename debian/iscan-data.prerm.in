@@ -1,0 +1,46 @@
+#! /bin/sh
+#  iscan-data.prerm -- things to do before package removal
+#  Copyright (C) 2010  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+
+
+#DEBHELPER#
+
+
+STATE_DIR=@DEB_CONFIGURE_LOCALSTATEDIR@/lib/@DEB_SOURCE_PACKAGE@
+
+VERSION=@DEB_VERSION@
+
+SYSCONFDIR=@DEB_CONFIGURE_SYSCONFDIR@
+
+PATH=$PKGLIBDIR:$PATH
+
+case "$1" in
+
+    remove|upgrade)
+	if  test -f $STATE_DIR/clean-files; then
+	    sed -n "s|^$VERSION\t\(/.*\)|\1|p" \
+		     $STATE_DIR/clean-files \
+	      | while read file; do
+	          rm -f "$file" 2>/dev/null || true
+	        done
+	    sed -i "/^$VERSION\t\//d" $STATE_DIR/clean-files
+	    test -s $STATE_DIR/clean-files || rm $STATE_DIR/clean-files
+	fi
+	if  test -f $STATE_DIR/interpreter; then
+	    test -s $STATE_DIR/interpreter || rm $STATE_DIR/interpreter
+	fi
+	;;
+
+    failed-upgrade|deconfigure)
+	;;
+
+    *)
+	echo "postinst called with unknown argument \`$1'" >&2
+	exit 1
+	;;
+
+esac
+
+exit 0

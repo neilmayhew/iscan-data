@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="089A"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="PID 089A"/>
+        <model name="XP-850 Series"/>
+        <model name="EP-905F" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.0777"/>
+            <rg value="0.0152"/>
+            <rb value="-0.0929"/>
+            <gr value="0.0244"/>
+            <gg value="1.1221"/>
+            <gb value="-0.1465"/>
+            <br value="0.0103"/>
+            <bg value="-0.1544"/>
+            <bb value="1.1441"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="D7">
+        <command name="lock" code="1B28"/>
+        <command name="unlock" code="1B29"/>
+    </command-set>
+    <capabilities option="adf" mode="simplex">
+        <scan-area width="40800" height="67200" base="4800"/>
+    </capabilities>
+    <capabilities option="adf" mode="duplex">
+        <scan-area width="40800" height="56160" base="4800"/>
+    </capabilities>
+</scanner_entry>

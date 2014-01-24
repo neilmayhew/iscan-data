@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="08B6"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="PID 08B6"/>
+        <model name="XP-610 Series"/>
+        <model name="EP-776AB/EP-776AW" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.0567"/>
+            <rg value="0.0415"/>
+            <rb value="-0.0982"/>
+            <gr value="0.0289"/>
+            <gg value="1.1112"/>
+            <gb value="-0.1401"/>
+            <br value="0.0193"/>
+            <bg value="-0.2250"/>
+            <bb value="1.2057"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="D7">
+        <command name="eject" code="0C" status="disabled"/>
+        <command name="lock" code="1B28"/>
+        <command name="unlock" code="1B29"/>
+    </command-set>
+</scanner_entry>
+

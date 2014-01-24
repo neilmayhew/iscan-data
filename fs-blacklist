@@ -1,0 +1,119 @@
+#  fs-blacklist -- firmware names of scanners not to be used with FS commands 
+#  Copyright (C) 2008  SEIKO EPSON CORPORATION
+# 
+#  License: GPLv2+
+#  Authors: AVASYS CORPORATION
+# 
+#  This file is part of the SANE backend distributed with Image Scan!
+# 
+#  Image Scan!'s SANE backend is free software.
+#  You can redistribute it and/or modify it under the terms of the GNU
+#  General Public License as published by the Free Software Foundation;
+#  either version 2 of the License or at your option any later version.
+# 
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+# 
+#  You ought to have received a copy of the GNU General Public License
+#  along with this package.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+#  Unlike the SANE backend distributed with Image Scan! this data file
+#  is not subject to any special exceptions.
+
+fs-blacklist GT-10000
+fs-blacklist ES-6000
+fs-blacklist Perfection610
+fs-blacklist GT-6600
+fs-blacklist Perfection1200
+fs-blacklist GT-7600
+fs-blacklist Expression1600
+fs-blacklist ES-2000
+fs-blacklist Expression1640XL
+fs-blacklist ES-8500
+fs-blacklist Perfection640
+fs-blacklist GT-6700
+fs-blacklist Perfection1640
+fs-blacklist GT-8700
+fs-blacklist Perfection1240
+fs-blacklist GT-7700
+fs-blacklist GT-30000
+fs-blacklist ES-9000H
+fs-blacklist Expression1680
+fs-blacklist ES-2200
+fs-blacklist GT-7200
+fs-blacklist GT-8200
+fs-blacklist GT-9700
+fs-blacklist GT-7300
+fs-blacklist GT-8300
+fs-blacklist GT-9300
+fs-blacklist GT-9800
+fs-blacklist ES-7000H
+fs-blacklist LP-A500
+fs-blacklist AL-CX11
+fs-blacklist GT-9400
+fs-blacklist CC-600PX
+fs-blacklist PM-A850
+fs-blacklist CX5400
+fs-blacklist GT-X700
+fs-blacklist RX500
+fs-blacklist PX-A650
+fs-blacklist CX4600
+fs-blacklist CX6600
+fs-blacklist CX3600
+fs-blacklist RX420
+fs-blacklist PM-A700
+fs-blacklist PM-A870
+fs-blacklist GT-F500
+fs-blacklist GT-F600
+fs-blacklist PM-A900
+fs-blacklist GT-X800
+fs-blacklist GT-X750
+fs-blacklist LP-M5500
+fs-blacklist LP-M5600
+fs-blacklist GT-F520
+fs-blacklist CX3800
+fs-blacklist CX7800
+fs-blacklist PM-A750
+fs-blacklist CX4800
+fs-blacklist CX4200
+fs-blacklist PM-A950
+fs-blacklist PM-A890
+fs-blacklist GT-X900
+fs-blacklist CX4000
+fs-blacklist CX3000v
+fs-blacklist ES-H300
+fs-blacklist CX6000
+fs-blacklist PM-A820
+fs-blacklist PM-A920
+fs-blacklist PM-A970
+fs-blacklist PM-T990
+fs-blacklist CX5000
+fs-blacklist GT-S600
+fs-blacklist GT-F700
+fs-blacklist AL-CX21
+fs-blacklist GT-F670
+fs-blacklist GT-X770
+fs-blacklist CX4400
+fs-blacklist CX7400
+fs-blacklist CX8400
+fs-blacklist CX9400Fax
+fs-blacklist PM-T960
+fs-blacklist PM-A940
+fs-blacklist PM-A840
+fs-blacklist GT-D1000
+fs-blacklist GT-X970
+fs-blacklist LP-M5000
+fs-blacklist LP-M5300
+fs-blacklist LP-M6000
+fs-blacklist NX200
+fs-blacklist NX400
+fs-blacklist NX300
+fs-blacklist WorkForce 600
+fs-blacklist Artisan 800
+fs-blacklist Artisan 700
+fs-blacklist WorkForce 500
+fs-blacklist GT-F720
+fs-blacklist GT-S620

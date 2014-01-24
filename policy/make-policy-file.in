@@ -1,0 +1,468 @@
+#! /bin/sh
+#  make-policy-file -- creates policy file following system policy
+#  Copyright (C) 2008, 2009  SEIKO EPSON CORPORATION
+
+#  This file is part of "Image Scan! for Linux".
+#  You can redistribute it and/or modify it under the terms of the GNU
+#  General Public License as published by the Free Software Foundation;
+#  either version 2 of the License or at your option any later version.
+#
+#  This program is distributed in the hope that it will be useful, but
+#  WITHOUT ANY WARRANTY;  without even the implied warranty of FITNESS
+#  FOR A PARTICULAR PURPOSE or MERCHANTABILITY.
+#  See the GNU General Public License for more details.
+#
+#  You should have received a verbatim copy of the GNU General Public
+#  License along with this program; if not, write to:
+#
+#      Free Software Foundation, Inc.
+#      59 Temple Place, Suite 330
+#      Boston, MA  02111-1307  USA
+
+
+LC_COLLATE=POSIX		# we use [:alpha:]
+export LC_COLLATE
+
+#  Shows script usage documentation and exits the program with the
+#  optional status passed as its first argument.
+
+usage () {
+    cat <<EOF
+'`basename $0`' attempts to create a system policy compliant FDI file
+
+Usage: $0 --mode=fdi  [OPTIONS]
+       $0 --mode=udev [OPTIONS]
+
+The various distributions all have their own ideas about what policy
+governs access to scanner devices and how they should be configured.
+This script tries to make sure that "Image Scan! for Linux" adheres
+to the rules your distribution thinks are good for you.
+
+Typically invoked in a binary package's post-installation phase, it
+uses a .desc file in combination with the distribution's .fdi file
+from the sane-backends binary package to create a similar .fdi file.
+
+The following options are supported:
+
+  -h, --help              display this message and exit
+  -v, --version           display program version and exit
+  -f, --force             overwrite existing OUT-FILE
+  -q, --quiet             do not complain about a missing template
+      --test              do a test in the development setup
+  -m, --mode=[fdi|udev]   tells what type of policy file to create,
+                          an FDI file for use with HAL or a udev rules
+                          file
+  -d, --desc-file=FILE    description FILE to obtain USB information
+  -u, --usb-file=FILE     usb FILE to obtain USB information
+  -o, --out-file=FILE     write output to FILE
+  -t, --template=FILE     use FILE to deduce the system's policy
+  -r, --registry=FILE     list OUT-FILE for removal at uninstallation
+  -p, --pkg-vers=VERSION  make OUT-FILE removal depend on the package
+                          version
+
+The --registry and --pkg-vers options are mainly for use in binary
+packaging.  They can be used to register a file created during the
+post-installation phase so that it can be removed when the package
+is uninstalled.  The package version can be added to avoid removal
+of files that do not belong to the package being removed.
+Note, these options always need to be used together.
+
+The --test option runs the program under the assumption that it is
+invoked in the package's source directory.  This option also sets
+the --force option and clears the --registry and --pkg-vers options.
+The option assumes you have usable epkowa.\$mode files created from
+the source's epkowa.desc file.
+
+EOF
+    exit $1
+}
+
+#  Output a version blurb and exit conditionally.
+
+version () {
+    do_cont=$1
+
+    cat <<EOF
+`basename $0` (@PACKAGE_NAME@) @PACKAGE_VERSION@
+Copyright (C) 2008  SEIKO EPSON CORPORATION
+This is free software.  You may redistribute copies of it under the terms
+of the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.
+EOF
+
+    test xno = x$do_cont && exit 0
+}
+
+mesg () {
+    echo `basename $0`: $*
+}
+
+fdi_template_override () {
+    if test xfdi != x"$MODE"; then
+        exit 1
+    fi
+
+    if test -r /etc/SuSE-release && grep "SUSE Linux Enterprise Desktop 10" /etc/SuSE-release >/dev/null 2>&1; then
+        echo "sled10"
+        exit 0
+    fi
+
+    exit 1
+}
+
+find_file () {
+  target_file=$1
+  shift
+  test_dirs=
+  if test xyes = x"$TEST"; then
+    test_dirs="$@"
+  fi
+  for dir in \
+      $test_dirs \
+      /usr/share/local/iscan-data \
+      /opt/share/iscan-data \
+      /usr/share/iscan-data \
+      /var/lib/@PACKAGE_NAME@ \
+      ; do
+    if test -f "$dir/$target_file"; then
+      echo "$dir/$target_file"
+      break
+    fi
+  done
+}
+
+#  Set initial values of global variables.
+
+DO_HELP=no
+DO_VERS=no
+FORCE=no
+QUIET=no
+TEST=no
+
+MODE=
+DESC_FILE=
+USB_FILE=
+MATCHING_FILE=
+OUT_FILE=
+TEMPLATE=
+
+REGISTRY=
+PKG_VERS=
+
+#  Process command line options and arguments.
+
+parsed_opts=`getopt \
+    --options hvfqm:d:o:t:r:p: \
+    --longopt help,version,force,quiet,test \
+    --longopt mode:,desc-file:,usb-file:,out-file:,template: \
+    --longopt registry:,pkg-vers: \
+    -- "$@"`
+
+if test 0 != $?; then
+    mesg "error: invalid command line" >&2
+    usage 2
+fi
+
+eval set -- "$parsed_opts"
+
+while test x-- != x"$1"; do
+    case "$1" in		# `getopt` quotes option arguments
+	-h|--help)       DO_HELP=yes; shift;;
+	-v|--version)    DO_VERS=yes; shift;;
+	-f|--force)      FORCE=yes; shift;;
+	-q|--quiet)      QUIET=yes; shift;;
+           --test)       TEST=yes; shift;;
+	-m|--mode)       MODE=$2; shift 2;;
+	-d|--desc-file)  DESC_FILE=$2; shift 2;;
+	-u|--usb-file)   USB_FILE=$2 ; shift 2;;
+	-o|--out-file)   OUT_FILE=$2 ; shift 2;;
+	-t|--template)   TEMPLATE=$2 ; shift 2;;
+	-r|--registry)   REGISTRY=$2 ; shift 2;;
+	-p|--pkg-vers)   PKG_VERS=$2 ; shift 2;;
+	*)
+	    mesg "internal error: inconsistent option spec handling" >&2
+	    exit 3
+	    ;;
+    esac
+done
+shift				# past the '--' marker
+
+#  Sanity checking and option handling.
+
+if test 0 -ne $#; then
+    mesg "warning: ignoring remaining command line arguments" >&2
+fi
+
+test xno != x$DO_VERS && version $DO_HELP
+test xno != x$DO_HELP && usage 0
+
+if test x = x"$MODE"; then
+    mesg "error: the --mode option is required" >&2
+    exit 2
+fi
+if test xfdi != x"$MODE" && test xudev != x"$MODE"; then
+    mesg "error: invalid mode '$MODE'" >&2
+    exit 2
+fi
+
+if test xyes = x"$TEST"; then
+    FORCE=yes
+    REGISTRY=
+    PKG_VERS=
+fi
+
+if test x = x"$REGISTRY" && test x != x"$PKG_VERS"; then
+    mesg "error: use of --pkg-vers requires use of --registry" >&2
+    exit 2
+fi 
+if test x != x"$REGISTRY" && test x = x"$PKG_VERS"; then
+    mesg "error: use of --registry requires use of --pkg-vers" >&2
+    exit 2
+fi 
+
+if test x = x"$DESC_FILE"; then
+  DESC_FILE=`find_file epkowa.desc $PWD/.. $PWD`
+fi
+
+if test x = x"$USB_FILE"; then
+  USB_FILE=`find_file usb $PWD/.. $PWD`
+fi
+
+MATCHING_FILE=`find_file matching $PWD/.. $PWD`
+
+XSL_FILE=`find_file fdi.xsl $PWD $PWD/policy`
+
+if test x = x"$DESC_FILE"; then
+    mesg "warning: cannot find description file in default locations" >&2
+    mesg "warning: use --desc-file option to specify a file" >&2
+    exit 1
+fi
+if ! test -f "$DESC_FILE"; then
+    mesg "error: file not found ($DESC_FILE)" >&2
+    exit 1
+fi
+
+if test x = x"$TEMPLATE"; then
+    if test xyes = x"$TEST"; then
+	TEMPLATE=`dirname "$DESC_FILE"`/epkowa.$MODE
+    else
+	:			# go fetch
+	case "$MODE" in
+	    fdi)
+		for pattern in \
+		    "*sane.fdi" \
+		    "*scanner.fdi" \
+		    ; do
+		    for dir in \
+			/usr/share/hal \
+			/etc/hal \
+			/usr/local/share/hal \
+			; do
+			fdi="`find $dir -type f -name \"$pattern\" 2>/dev/null \
+			           | sed -n '1p'`"
+			if test -f "$fdi"; then
+			    TEMPLATE="$fdi"
+			    break 2
+			fi
+		    done
+		done
+		;;
+	    udev)
+		for pattern in \
+		    "*sane.rules" \
+		    "*usbscanner.rules" \
+		    ; do
+		    for dir in \
+			/lib/udev/rules.d \
+			/etc/udev/rules.d \
+			/dev/.udev/rules.d \
+			; do
+			rules="`ls $dir/$pattern 2>/dev/null | sed -n '1p'`"
+			if test -f "$rules"; then
+			    TEMPLATE="$rules"
+			    break 2
+			fi
+		    done
+		done
+		;;
+	    *)
+		mesg "internal error: inconsistent mode handling" >&2
+		exit 3
+		;;
+	esac
+    fi
+fi
+
+is_fedora_9_or_greater () {
+    CPE_PRODUCT="`cut -d: -f4 /etc/system-release-cpe 2> /dev/null`"
+    CPE_VERSION="`cut -d: -f5 /etc/system-release-cpe 2> /dev/null`"
+
+    test "$CPE_PRODUCT" = "fedora" && test "$CPE_VERSION" -ge 9 2> /dev/null
+    return $?
+}
+
+if test x = x"$OUT_FILE"; then
+    if test xyes = x"$TEST"; then
+	OUT_FILE=`dirname "$DESC_FILE"`/iscan.$MODE
+    else
+	OUT_FILE="`echo $TEMPLATE | sed 's|[[:alpha:]]*sane|iscan|'`"
+	OUT_FILE="`echo $OUT_FILE | sed 's|[[:alpha:]]*usbscanner|iscan|'`"
+	OUT_FILE="`echo $OUT_FILE | sed 's|[[:alpha:]]*scanner|iscan|'`"
+
+	if ! is_fedora_9_or_greater; then
+	    OUT_FILE="`echo $OUT_FILE | sed 's|/10osvendor/|/20thirdparty/|'`"
+	fi
+    fi
+fi
+
+if id=`fdi_template_override`; then
+    TEMPLATE=`dirname "$XSL_FILE"`/$id.custom.fdi
+fi
+
+if test x = x"$TEMPLATE"; then
+    if test xno = x"$QUIET"; then
+	mesg "warning: cannot find $MODE policy template in default locations" >&2
+	mesg "warning: use --template option to specify a file" >&2
+    fi
+    exit 1
+fi
+if ! test -f "$TEMPLATE"; then
+    if test xno = x"$QUIET"; then
+	mesg "error: file not found ($TEMPLATE)" >&2
+    fi
+    exit 1
+fi
+
+if test x"$TEMPLATE" = x"$OUT_FILE"; then
+    mesg "warning: output would clobber template input file" >&2
+    mesg "warning: use --out-file option to specify another file" >&2
+    exit 1
+fi
+
+if test -f "$OUT_FILE" && test xyes != x"$FORCE"; then
+    mesg "warning: existing $MODE policy in '$OUT_FILE'" >&2
+    mesg "warning: use --force to overwrite existing policy" >&2
+    exit 1
+fi
+
+
+get_usb_id () {
+    awk '/^:usbid/{ print $3 } /^usb/{ print $3 }' $@ | sed 's|"||g; s|^0x||' | sort -u
+}
+
+get_header () {
+    case "$MODE" in
+	udev)
+	    sed -n '/^#/!{ :t; /^SYSFS{id/q; /^ATTR{id/q; /^ATTRS{id/q; p; n; b t}' $1 \
+		| tac \
+		| sed -n -e '/^#/!{ :t; p; n; b t}' \
+		| tac \
+		| sed -e '1i\
+#    This file is generated as part of the installation of "Image\
+#    Scan! for Linux".  Any changes will be overwritten with each\
+#    upgrade of the package.'
+	    ;;
+	*)
+	    mesg "internal error: inconsistent $MODE handling" >&2
+	    exit 3
+	    ;;
+    esac
+}
+
+get_footer () {
+    case "$MODE" in
+	udev)
+	    line_count=`cat $1 | wc -l`
+	    last=`sed -n '/{idProduct}/ =' $1 | tail -n 1`
+	    num_lines=`expr $line_count \- $last`
+	    tail -n $num_lines $1
+	    ;;
+	*)
+	    mesg "internal error: inconsistent $MODE handling" >&2
+	    exit 3
+	    ;;
+    esac
+}
+
+get_stanza () {
+    case "$MODE" in
+	udev)
+	    sed -n \
+		-e '/[[:upper:]][[:upper:]]*{idVendor}=\{1,2\}"04[bB]8"/{ p; q }' \
+		$1 | sed 's|\([[:upper:]][[:upper:]]*{idProduct}=\{1,2\}\)"[[:xdigit:]]\{4\}"|\1"####"|'
+	    ;;
+	*)
+	    mesg "internal error: inconsistent $MODE handling" >&2
+	    exit 3
+	    ;;
+    esac
+}
+
+#  Create policy file
+
+OUT_PATH=`dirname "$OUT_FILE"` # if the path does not exist, create it
+if test ! -d "$OUT_PATH"; then
+    mkdir -p "$OUT_PATH"
+fi
+> "$OUT_FILE"			# truncate output file
+
+case "$MODE" in
+    fdi)
+        if ! `type xsltproc > /dev/null 2>&1`; then
+            mesg "error: xsltproc not installed" >&2
+            exit 3
+        fi
+        tmp_dir=`mktemp -d`
+        echo "<usbids>" > $tmp_dir/usbids.xml
+        for usb_id in `get_usb_id "$DESC_FILE" "$USB_FILE" "$MATCHING_FILE"`; do
+            echo "<usbid>0x$usb_id</usbid>" >> $tmp_dir/usbids.xml
+        done
+        echo "</usbids>" >> $tmp_dir/usbids.xml
+        if test xyes = x"$TEST"; then
+            xsltproc --nonet --path $tmp_dir --output "$OUT_FILE" "$XSL_FILE" "$TEMPLATE"
+        else
+            xsltproc --nonet --path $tmp_dir --output "$OUT_FILE" "$XSL_FILE" "$TEMPLATE" > /dev/null 2>&1;
+        fi
+        rv=$?
+        rm -rf $tmp_dir
+        if test 0 -ne $rv; then
+            if test xyes != x"$TEST"; then
+                rm $OUT_FILE
+            fi
+            exit $rv
+        fi
+        sed -i -e "s|%ISCAN_LIBSANE_FDI_INPUT_FILE_PATH%|$TEMPLATE|g" "$OUT_FILE"
+    ;;
+    udev)
+        header="`get_header $TEMPLATE | sed -e 's|%|%%|g' -e 's|\(GOTO.*\)libsane_\(.*\)|\1iscan_\2|g' -e 's|\(LABEL.*\)libsane_\(.*\)|\1iscan_\2|g'`"
+        footer="`get_footer $TEMPLATE | sed -e 's|%|%%|g' -e 's|\(GOTO.*\)libsane_\(.*\)|\1iscan_\2|g' -e 's|\(LABEL.*\)libsane_\(.*\)|\1iscan_\2|g'`"
+        stanza="`get_stanza $TEMPLATE | sed -e 's|%|%%|g' -e 's|\(GOTO.*\)libsane_\(.*\)|\1iscan_\2|g' -e 's|\(LABEL.*\)libsane_\(.*\)|\1iscan_\2|g'`"
+
+        printf "$header\n" >> "$OUT_FILE"
+        echo >> "$OUT_FILE"
+        for usb_id in `get_usb_id "$DESC_FILE" "$USB_FILE" "$MATCHING_FILE"`; do
+            printf "$stanza\n" \
+                | sed "s|\"\([^#]*\)####\"|\"\1$usb_id\"|" \
+                >> "$OUT_FILE"
+        done
+        echo >> "$OUT_FILE"
+        printf "$footer\n" >> "$OUT_FILE"
+    ;;
+    *)
+        mesg "internal error: inconsistent $MODE handling" >&2
+        exit 3
+    ;;
+esac
+
+#  Register file for removal.  The OUT_FILE is "owned" by PKG_VERS.
+
+if test x != x"$REGISTRY"; then
+    if test -f "$REGISTRY"; then
+	sed -i "s|.*\t$OUT_FILE$|$PKG_VERS\t$OUT_FILE|" "$REGISTRY"
+    fi
+    #  grep does not understand the \t backslash escape!!
+    if ! grep -E "	$OUT_FILE$" "$REGISTRY" >/dev/null 2>&1; then
+	printf "$PKG_VERS\t$OUT_FILE\n" >> "$REGISTRY"
+    fi
+fi
+
+exit 0
