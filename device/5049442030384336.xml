@@ -2,13 +2,13 @@
 
 <scanner_entry>
     <interfaces>
-        <usb vendor="04b8" product="08B4"/>
+        <usb vendor="04b8" product="08C6"/>
         <net/>
     </interfaces>
     <device>
-        <firmware name="PID 08B4"/>
-        <model name="XP-810 Series"/>
-        <model name="EP-906F" region="japan"/>
+        <firmware name="PID 08C6"/>
+        <model name="XP-820/860 Series"/>
+        <model name="EP-907F" region="japan"/>
     </device>
     <profile-set>
         <profile type="reflective">

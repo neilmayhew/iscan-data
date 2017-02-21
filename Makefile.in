@@ -202,12 +202,13 @@ nodist_iscandata_DATA = \
 EXTRA_DIST = usb.in usb.xsl SUPPORTED-DEVICES KNOWN-PROBLEMS.in \
 	KNOWN-PROBLEMS bootstrap debian/$(PACKAGE_TARNAME).postinst.in \
 	debian/$(PACKAGE_TARNAME).prerm.in \
+	debian/$(PACKAGE_TARNAME).postrm \
 	debian/$(PACKAGE_TARNAME).docs \
 	$(scm_deb_builddir)/source/format \
 	$(scm_deb_builddir)/changelog $(am__append_1) $(am__append_2) \
 	$(am__append_4) $(am__append_5) $(am__append_7) \
 	$(am__append_8) $(am__append_10) $(am__append_11)
-CLEANFILES = usb
+CLEANFILES = usb $(PACKAGE_TARNAME).hwdb
 MAINTAINERCLEANFILES = $(scm_deb_builddir)/source/format \
 	$(scm_deb_builddir)/changelog $(am__append_3) $(am__append_6) \
 	$(am__append_9) $(am__append_12)
@@ -689,12 +690,23 @@ $(top_srcdir)/KNOWN-PROBLEMS: $(top_srcdir)/KNOWN-PROBLEMS.in
 usb: $(top_srcdir)/usb.in $(top_srcdir)/usb.xsl $(top_srcdir)/device/*.xml
 	cat $< > $@
 	for file in `ls $(top_srcdir)/device/*.xml`; do \
-	  xsltproc usb.xsl $$file | tr '[A-F]' '[a-f]' | while read line ; do \
+	  xsltproc $(top_srcdir)/usb.xsl $$file \
+	    | tr '[A-F]' '[a-f]' | while read line ; do \
 	    if ! grep "$$line" $@ > /dev/null 2>&1; then \
 	      echo $$line >> $@; \
 	    fi \
 	  done \
 	done
+
+$(PACKAGE_TARNAME).hwdb: usb
+	sed -e '/^usb/y/abcdef/ABCDEF/' \
+	    -e 's/usB/usb/' \
+	    -e '/^usb/s/ 0x/:v/' \
+	    -e '/^usb/s/ 0x/p/' \
+	    -e '/^usb/s/$$/*\n libsane_matched=yes\n/' \
+	    -e '1s/$</$@/' \
+	    -e '2s/2008/2015/' \
+	    $< > $@
 
 # only include xml files with stubbed model names when doing unofficial builds
 dist-hook:

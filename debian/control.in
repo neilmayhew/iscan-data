@@ -1,5 +1,5 @@
 #  control.in -- %__FILE_DESC__%
-#  Copyright (C) 2010--2011  SEIKO EPSON CORPORATION
+#  Copyright (C) 2010--2011, 2014  SEIKO EPSON CORPORATION
 #
 #  License: GPLv2+
 #  Authors: AVASYS CORPORATION
@@ -28,8 +28,8 @@ Standards-Version: 3.8.0
 
 Package: @PACKAGE_TARNAME@
 Architecture: all
-Depends: udev (>= 0.105-4), xsltproc, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: iscan (<< 2.28.0)
+Depends: udev (>= 0.105-4), xsltproc, ${misc:Depends}
+Conflicts: iscan (<< 2.30.0)
 Description: @scm_src_summary@
 @scm_src_header@
 .

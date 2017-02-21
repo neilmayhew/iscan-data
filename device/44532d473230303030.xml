@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="015B"/>
+    </interfaces>
+    <device>
+        <firmware name="DS-G20000"/>
+        <model name="DS-G20000" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.1262"/>
+            <rg value="-0.0864"/>
+            <rb value="-0.0398"/>
+            <gr value="-0.0522"/>
+            <gg value="1.0792"/>
+            <gb value="-0.0270"/>
+            <br value="0.0426"/>
+            <bg value="-0.4403"/>
+            <bb value="1.3977"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="color negative">
+            <rr value="0.9927"/>
+            <rg value="0.0054"/>
+            <rb value="0.0019"/>
+            <gr value="-0.1717"/>
+            <gg value="1.0333"/>
+            <gb value="0.1384"/>
+            <br value="-0.0076"/>
+            <bg value="-0.1868"/>
+            <bb value="1.1944"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="positive">
+            <rr value="1.2941"/>
+            <rg value="-0.2540"/>
+            <rb value="-0.0401"/>
+            <gr value="0.0021"/>
+            <gg value="0.9962"/>
+            <gb value="0.0017"/>
+            <br value="0.0169"/>
+            <bg value="-0.2846"/>
+            <bb value="1.2677"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="B8">
+        <command name="set_focus_position" code="1B70"/>
+    </command-set>
+</scanner_entry>
+
