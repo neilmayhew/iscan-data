@@ -1,5 +1,5 @@
 #  rpm.spec.in -- specifications to build RPM packages
-#  Copyright (C) 2010--2011  SEIKO EPSON CORPORATION
+#  Copyright (C) 2010--2015  SEIKO EPSON CORPORATION
 #
 #  License: GPLv2+
 #  Authors: AVASYS CORPORATION
@@ -37,7 +37,7 @@ Vendor:		@scm_src_vendor@
 URL:		@scm_src_website@
 Packager:	@scm_rpm_maint@
 
-Conflicts:	iscan < 2.28.0
+Conflicts:	iscan < 2.30.0
 Provides:	iscan-data
 
 BuildArch:	noarch
@@ -74,6 +74,9 @@ make
 rm -rf ${RPM_BUILD_ROOT}
 make install DESTDIR=${RPM_BUILD_ROOT}
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/lib/%{pkg}
+make %{pkg}.hwdb
+mkdir -p ${RPM_BUILD_ROOT}/lib/udev/hwdb.d/
+install -m 0644 %{pkg}.hwdb ${RPM_BUILD_ROOT}/lib/udev/hwdb.d/
 
 
 %clean
@@ -105,6 +108,7 @@ else
     echo "install xsltproc and run \"%{_libdir}/%{pkg}/make-policy-file --mode fdi\"" >&2
     echo "to enable this feature." >&2
 fi
+udevadm hwdb --update >/dev/null 2>&1 || true
 
 
 %preun
@@ -133,6 +137,7 @@ rmdir %{_datadir}/%{pkg}/device 2> /dev/null || true
 rmdir %{_datadir}/%{pkg} 2> /dev/null || true
 rmdir %{_libdir}/%{pkg}  2> /dev/null || true
 rmdir %{_localstatedir}/lib/%{pkg} 2> /dev/null || true
+udevadm hwdb --update >/dev/null 2>&1 || true
 
 
 #  package contents
@@ -154,3 +159,4 @@ rmdir %{_localstatedir}/lib/%{pkg} 2> /dev/null || true
 %{_datadir}/iscan-data/device/*.xml
 %{_libdir}/%{pkg}/make-policy-file
 %{_localstatedir}/lib/%{pkg}
+/lib/udev/hwdb.d/%{pkg}.hwdb

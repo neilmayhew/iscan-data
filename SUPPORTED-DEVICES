@@ -1,5 +1,7 @@
 The following devices are known to work with Image Scan! for Linux:
 
+   - AL-MX300DN Series
+   - AL-MX300DNF Series
    - Artisan 635
    - Artisan 700
    - Artisan 710 Series
@@ -10,16 +12,19 @@ The following devices are known to work with Image Scan! for Linux:
    - Artisan 835
    - Artisan 837
    - DS-30 (requires iscan-plugin-ds-30)
+   - DS-G20000
    - EP-702A
    - EP-703A
    - EP-704A
    - EP-705A
    - EP-706A
+   - EP-707A
    - EP-774A
    - EP-775A
    - EP-775AW
    - EP-776AB
    - EP-776AW
+   - EP-777A
    - EP-801A
    - EP-802A
    - EP-803A
@@ -33,6 +38,9 @@ The following devices are known to work with Image Scan! for Linux:
    - EP-806AB
    - EP-806AR
    - EP-806AW
+   - EP-807AB
+   - EP-807AR
+   - EP-807AW
    - EP-901A
    - EP-901F
    - EP-902A
@@ -43,7 +51,9 @@ The following devices are known to work with Image Scan! for Linux:
    - EP-905A
    - EP-905F
    - EP-906F
+   - EP-907F
    - EP-976A3
+   - EP-977A3
    - ES-10000G
    - ES-2000
    - ES-2200
@@ -111,6 +121,7 @@ The following devices are known to work with Image Scan! for Linux:
    - Epson Perfection 640U
    - Epson Perfection V10 (requires iscan-plugin-gt-s600)
    - Epson Perfection V100 Photo (requires iscan-plugin-gt-s600)
+   - Epson Perfection V19 (requires iscan-plugin-gt-s650)
    - Epson Perfection V200 Photo (requires iscan-plugin-gt-f670)
    - Epson Perfection V30 (requires esci-interpreter-gt-f720)
    - Epson Perfection V300 Photo (requires esci-interpreter-gt-f720)
@@ -119,11 +130,14 @@ The following devices are known to work with Image Scan! for Linux:
    - Epson Perfection V350 Photo (requires iscan-plugin-gt-f700, AFL not supported)
    - Epson Perfection V37 (requires iscan-plugin-perfection-v370)
    - Epson Perfection V370 Photo (requires iscan-plugin-perfection-v370)
+   - Epson Perfection V39 (requires iscan-plugin-gt-s650)
    - Epson Perfection V500 Photo (requires iscan-plugin-gt-x770)
    - Epson Perfection V550 Photo (requires iscan-plugin-perfection-v550)
    - Epson Perfection V600 Photo (requires iscan-plugin-gt-x820)
    - Epson Perfection V700 Photo
    - Epson Perfection V750 Photo
+   - Epson Perfection V800 Photo
+   - Epson Perfection V850 Pro
    - Epson Stylus CX2800
    - Epson Stylus CX2900
    - Epson Stylus CX3500
@@ -335,6 +349,7 @@ The following devices are known to work with Image Scan! for Linux:
    - GT-S620 (requires esci-interpreter-gt-f720)
    - GT-S630 (requires esci-interpreter-perfection-v330)
    - GT-S640 (requires iscan-plugin-perfection-v370)
+   - GT-S650 (requires iscan-plugin-gt-s650)
    - GT-S80 (requires esci-interpreter-gt-s80)
    - GT-S85 (requires esci-interpreter-gt-s80)
    - GT-X700
@@ -342,8 +357,10 @@ The following devices are known to work with Image Scan! for Linux:
    - GT-X770 (requires iscan-plugin-gt-x770)
    - GT-X800
    - GT-X820 (requires iscan-plugin-gt-x820)
+   - GT-X830 (requires iscan-plugin-gt-x830)
    - GT-X900
    - GT-X970
+   - GT-X980
    - K200 Series
    - K300 Series
    - L200 Series
@@ -353,6 +370,7 @@ The following devices are known to work with Image Scan! for Linux:
    - L355
    - L358
    - L550 Series
+   - L850 Series
    - LP-A500
    - LP-M5000
    - LP-M5300 Series
@@ -384,6 +402,7 @@ The following devices are known to work with Image Scan! for Linux:
    - PM-T990
    - PX-045A
    - PX-046A
+   - PX-047A
    - PX-1600F
    - PX-1700F
    - PX-401A
@@ -394,6 +413,7 @@ The following devices are known to work with Image Scan! for Linux:
    - PX-434A
    - PX-435A
    - PX-436A
+   - PX-437A
    - PX-501A
    - PX-502A
    - PX-503A
@@ -414,16 +434,38 @@ The following devices are known to work with Image Scan! for Linux:
    - PX-A740
    - PX-B750F
    - PX-FA700
+   - PX-M350F
+   - PX-M5040F
+   - PX-M5041F
+   - PX-M650A
+   - PX-M650F
+   - PX-M740F
+   - PX-M741F
+   - PX-M840F
    - WF-2510 Series
    - WF-2520 Series
    - WF-2530 Series
    - WF-2540 Series
+   - WF-2630 Series
+   - WF-2650 Series
+   - WF-2660 Series
    - WF-3520 Series
    - WF-3530 Series
    - WF-3540 Series
+   - WF-3620 Series
+   - WF-3640 Series
+   - WF-4630 Series
+   - WF-4640 Series
+   - WF-5620 Series
+   - WF-5690 Series
    - WF-7510 Series
    - WF-7520 Series
+   - WF-7610 Series
+   - WF-7620 Series
    - WF-M1560 Series
+   - WF-M5690 Series
+   - WF-R4640 Series
+   - WF-R5690 Series
    - WP-4511
    - WP-4515
    - WP-4521
@@ -450,17 +492,26 @@ The following devices are known to work with Image Scan! for Linux:
    - XP-211
    - XP-212
    - XP-215
+   - XP-225
    - XP-300 Series
    - XP-310 Series
+   - XP-320 Series
    - XP-400 Series
    - XP-410 Series
+   - XP-420 Series
    - XP-510 Series
+   - XP-520 Series
    - XP-600 Series
    - XP-610 Series
+   - XP-620 Series
    - XP-700 Series
    - XP-710 Series
+   - XP-720 Series
    - XP-750 Series
+   - XP-760 Series
    - XP-800 Series
    - XP-810 Series
+   - XP-820 Series
    - XP-850 Series
+   - XP-860 Series
    - XP-950 Series

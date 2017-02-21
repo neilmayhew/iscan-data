@@ -1,5 +1,5 @@
 ##  Makefile.am -- an -*- automake -*- template for Makefile.in
-##  Copyright (C) 2010  SEIKO EPSON CORPORATION
+##  Copyright (C) 2010--2015  SEIKO EPSON CORPORATION
 ##
 ##  License: GPLv2+
 ##  Authors: AVASYS CORPORATION
@@ -45,6 +45,7 @@ EXTRA_DIST = \
 	\
 	debian/$(PACKAGE_TARNAME).postinst.in \
 	debian/$(PACKAGE_TARNAME).prerm.in \
+	debian/$(PACKAGE_TARNAME).postrm \
 	debian/$(PACKAGE_TARNAME).docs
 
 $(top_srcdir)/KNOWN-PROBLEMS: $(top_srcdir)/KNOWN-PROBLEMS.in
@@ -57,12 +58,23 @@ $(top_srcdir)/KNOWN-PROBLEMS: $(top_srcdir)/KNOWN-PROBLEMS.in
 usb: $(top_srcdir)/usb.in $(top_srcdir)/usb.xsl $(top_srcdir)/device/*.xml
 	cat $< > $@
 	for file in `ls $(top_srcdir)/device/*.xml`; do \
-	  xsltproc usb.xsl $$file | tr '[A-F]' '[a-f]' | while read line ; do \
+	  xsltproc $(top_srcdir)/usb.xsl $$file \
+	    | tr '[A-F]' '[a-f]' | while read line ; do \
 	    if ! grep "$$line" $@ > /dev/null 2>&1; then \
 	      echo $$line >> $@; \
 	    fi \
 	  done \
 	done
+
+$(PACKAGE_TARNAME).hwdb: usb
+	sed -e '/^usb/y/abcdef/ABCDEF/' \
+	    -e 's/usB/usb/' \
+	    -e '/^usb/s/ 0x/:v/' \
+	    -e '/^usb/s/ 0x/p/' \
+	    -e '/^usb/s/$$/*\n libsane_matched=yes\n/' \
+	    -e '1s/$</$@/' \
+	    -e '2s/2008/2015/' \
+	    $< > $@
 
 # only include xml files with stubbed model names when doing unofficial builds
 dist-hook:
@@ -97,7 +109,7 @@ uninstall-hook:
 	-rm -f $(DESTDIR)/$(pkglocalstatedir)/matching
 	-rmdir $(DESTDIR)/$(pkglocalstatedir)
 
-CLEANFILES = usb
+CLEANFILES = usb $(PACKAGE_TARNAME).hwdb
 
 MAINTAINERCLEANFILES = 
 MAINTAINERCLEANLOCAL = 

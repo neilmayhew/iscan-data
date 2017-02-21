@@ -2,13 +2,12 @@
 
 <scanner_entry>
     <interfaces>
-        <usb vendor="04b8" product="08B4"/>
+        <usb vendor="04b8" product="08CD"/>
         <net/>
     </interfaces>
     <device>
-        <firmware name="PID 08B4"/>
-        <model name="XP-810 Series"/>
-        <model name="EP-906F" region="japan"/>
+        <firmware name="PID 08CD"/>
+        <model name="WF-R4640/R5690 Series"/>
     </device>
     <profile-set>
         <profile type="reflective">
@@ -28,10 +27,10 @@
         <command name="unlock" code="1B29"/>
     </command-set>
     <capabilities option="adf" mode="simplex">
-        <scan-area width="40800" height="67200" base="4800"/>
+        <scan-area width="10200" height="16800" base="1200"/>
     </capabilities>
     <capabilities option="adf" mode="duplex">
-        <scan-area width="40800" height="56160" base="4800"/>
+        <scan-area width="10200" height="14040" base="1200"/>
     </capabilities>
 </scanner_entry>
 

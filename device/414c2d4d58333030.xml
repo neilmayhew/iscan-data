@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="08ac"/>
+        <net/>
+    </interfaces>
+    <device>
+        <firmware name="AL-MX300"/>
+        <model name="AL-MX300DN/MX300DNF Series"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.1545"/>
+            <rg value="-0.0970"/>
+            <rb value="-0.0575"/>
+            <gr value="-0.1735"/>
+            <gg value="1.2372"/>
+            <gb value="-0.0637"/>
+            <br value="-0.0424"/>
+            <bg value="-0.3831"/>
+            <bb value="1.4255"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="B7">
+        <command name="eject" code="0C" status="disabled"/>
+        <command name="set_focus_position" code="1B70"/>
+        <command name="lock" code="1B28"/>
+        <command name="unlock" code="1B29"/>
+    </command-set>
+</scanner_entry>

@@ -2,13 +2,12 @@
 
 <scanner_entry>
     <interfaces>
-        <usb vendor="04b8" product="08B4"/>
+        <usb vendor="04b8" product="08C5"/>
         <net/>
     </interfaces>
     <device>
-        <firmware name="PID 08B4"/>
-        <model name="XP-810 Series"/>
-        <model name="EP-906F" region="japan"/>
+        <firmware name="PID 08C5"/>
+        <model name="EP-977A3" region="japan"/>
     </device>
     <profile-set>
         <profile type="reflective">
@@ -24,14 +23,9 @@
         </profile>
     </profile-set>
     <command-set type="extended" level="D7">
+        <command name="eject" code="0C" status="disabled"/>
         <command name="lock" code="1B28"/>
         <command name="unlock" code="1B29"/>
     </command-set>
-    <capabilities option="adf" mode="simplex">
-        <scan-area width="40800" height="67200" base="4800"/>
-    </capabilities>
-    <capabilities option="adf" mode="duplex">
-        <scan-area width="40800" height="56160" base="4800"/>
-    </capabilities>
 </scanner_entry>
 

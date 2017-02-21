@@ -1,5 +1,5 @@
 dnl  configure.ac -- an -*- autoconf -*- template for configure
-dnl  Copyright (C) 2010--2013  SEIKO EPSON CORPORATION
+dnl  Copyright (C) 2010--2015  SEIKO EPSON CORPORATION
 dnl
 dnl  License: GPLv2+
 dnl  Authors: AVASYS CORPORATION
@@ -25,13 +25,13 @@ dnl  preamble
 
 AC_PREREQ(2.60)
 AC_INIT([iscan-data],
-	[1.26.0],
+	[1.39.0],
 	[linux-scanner@epson.jp],
 	[iscan-data])
 
 SCM_INIT([-Wall -Werror])
 
-AC_SUBST(COPYRIGHT_PERIOD, ["2010-2013"])
+AC_SUBST(COPYRIGHT_PERIOD, ["2010-2016"])
 SCM_RELEASE([1])
 
 SCM_VENDOR([SEIKO EPSON CORPORATION])

@@ -1,6 +1,6 @@
-iscan-data (1.26.0-1) unstable; urgency=low
+iscan-data (1.39.0-1) unstable; urgency=low
 
   * latest "upstream"
     See the NEWS and/or ChangeLog files for details.
 
- -- AVASYS CORPORATION <linux-scanner@epson.jp>  Tue, 24 Dec 2013 07:14:36 +0000
+ -- AVASYS CORPORATION <linux-scanner@epson.jp>  Mon, 21 Nov 2016 05:47:46 +0000

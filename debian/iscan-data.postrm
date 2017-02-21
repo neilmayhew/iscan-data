@@ -1,0 +1,33 @@
+#! /bin/sh
+#  iscan-data.postrm -- things to do after package removal
+#  Copyright (C) 2014  SEIKO EPSON CORPORATION
+#
+#  License: GPLv2+
+
+
+#DEBHELPER#
+
+
+case "$1" in
+
+    remove|purge)
+	udevadm hwdb --update >/dev/null 2>&1
+	;;
+
+    upgrade|disappear)
+	;;
+
+    failed-upgrade)
+	;;
+
+    abort-install|abort-upgrade)
+	;;
+
+    *)
+	echo "postinst called with unknown argument \`$1'" >&2
+	exit 1
+	;;
+
+esac
+
+exit 0

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="0151"/>
+    </interfaces>
+    <device>
+        <firmware name="GT-X980"/>
+        <model name="Perfection V800 Photo/V850 Pro"/>
+        <model name="GT-X980" region="japan"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.2777"/>
+            <rg value="-0.2306"/>
+            <rb value="-0.0471"/>
+            <gr value="-0.1579"/>
+            <gg value="1.2377"/>
+            <gb value="-0.0798"/>
+            <br value="-0.0380"/>
+            <bg value="-0.2366"/>
+            <bb value="1.2746"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="color negative">
+            <rr value="0.9956"/>
+            <rg value="0.0021"/>
+            <rb value="0.0023"/>
+            <gr value="-0.2304"/>
+            <gg value="1.1133"/>
+            <gb value="0.1171"/>
+            <br value="-0.0282"/>
+            <bg value="-0.0570"/>
+            <bb value="1.0852"/>
+        </profile>
+    </profile-set>
+    <profile-set>
+        <profile type="positive">
+            <rr value="1.4218"/>
+            <rg value="-0.4002"/>
+            <rb value="-0.0216"/>
+            <gr value="-0.0792"/>
+            <gg value="1.1495"/>
+            <gb value="-0.0703"/>
+            <br value="-0.0068"/>
+            <bg value="-0.1700"/>
+            <bb value="1.1768"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="B8">
+        <command name="eject" code="0C" status="disabled"/>
+        <command name="feed" code="19" status="disabled"/>
+        <command name="set_focus_position" code="1B70"/>
+    </command-set>
+</scanner_entry>
+

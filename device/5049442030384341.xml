@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<scanner_entry>
+    <interfaces>
+        <usb vendor="04b8" product="08CA"/>
+    </interfaces>
+    <device>
+        <firmware name="PID 08CA"/>
+        <model name="L850 Series"/>
+    </device>
+    <profile-set>
+        <profile type="reflective">
+            <rr value="1.0613"/>
+            <rg value="0.0322"/>
+            <rb value="-0.0935"/>
+            <gr value="0.0260"/>
+            <gg value="1.0999"/>
+            <gb value="-0.1259"/>
+            <br value="0.0229"/>
+            <bg value="-0.2275"/>
+            <bb value="1.2046"/>
+        </profile>
+    </profile-set>
+    <command-set type="extended" level="D7">
+        <command name="eject" code="0C" status="disabled"/>
+        <command name="lock" code="1B28"/>
+        <command name="unlock" code="1B29"/>
+    </command-set>
+</scanner_entry>
+

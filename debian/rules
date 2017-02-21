@@ -1,6 +1,6 @@
 #! /usr/bin/make -f
 #  rules.in -- to build Debian packages
-#  Copyright (C) 2010  SEIKO EPSON CORPORATION
+#  Copyright (C) 2010, 2014  SEIKO EPSON CORPORATION
 #
 #  License: GPLv2+
 #  Authors: AVASYS CORPORATION
@@ -33,12 +33,16 @@ DEB_MAKE_CHECK_TARGET = check
 
 statedir       = $(DEB_DESTDIR)$(DEB_CONFIGURE_LOCALSTATEDIR)/lib/$(DEB_SOURCE_PACKAGE)
 hooksdir       = $(DEB_DESTDIR)$(DEB_CONFIGURE_PREFIX)/share/initramfs-tools/hooks
+hwdbdir        = $(DEB_DESTDIR)/lib/udev/hwdb.d/
 
 install/$(DEB_SOURCE_PACKAGE)::
 	test -d $(statedir)             || mkdir -p $(statedir)
 	test -d $(hooksdir)             || mkdir -p $(hooksdir)
 	install -m 0755 $(DEB_SRCDIR)/policy/initramfs-hook \
 	    $(hooksdir)/`echo $(DEB_SOURCE_PACKAGE) | sed 's/[^_0-9a-zA-Z]/_/g'`
+	make -C $(DEB_BUILDDIR) $(DEB_SOURCE_PACKAGE).hwdb
+	test -d $(hwdbdir) || mkdir -p $(hwdbdir)
+	install -m 0644 $(DEB_BUILDDIR)/$(DEB_SOURCE_PACKAGE).hwdb $(hwdbdir)
 
 deb_subst_files = \
 	$(CURDIR)/policy/initramfs-hook \
